@@ -1,11 +1,11 @@
-import ProfileHeader from "@/components/ProfileHeader";
-import ThreadsTab from "@/components/ThreadsTab";
-import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
-import { profileTabs } from "@/constants";
-import { fetchUser } from "@/lib/actions/user.actions";
-import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { profileTabs } from "@/constants";
+import ThreadsTab from "@/components/ThreadsTab";
+import ProfileHeader from "@/components/ProfileHeader";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { fetchUser } from "@/lib/actions/user.actions";
 
 export default async function Profile({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -38,7 +38,7 @@ export default async function Profile({ params }: { params: { id: string } }) {
                 <p className="max-sm:hidden">{tab.label}</p>
                 {tab.label === "Threads" && (
                   <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
-                    {userInfo?.threads?.length}
+                    {userInfo.threads.length}
                   </p>
                 )}
               </TabsTrigger>
@@ -50,6 +50,7 @@ export default async function Profile({ params }: { params: { id: string } }) {
               value={tab.value}
               className="w-full text-light-1"
             >
+              {/* @ts-ignore */}
               <ThreadsTab
                 currentUserId={user.id}
                 accountId={userInfo.id}
